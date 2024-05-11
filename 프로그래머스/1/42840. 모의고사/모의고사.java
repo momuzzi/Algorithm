@@ -22,10 +22,6 @@ class Solution {
             }
         }
         
-        System.out.println("a1: " + score[0]);
-        System.out.println("a2: " + score[1]);
-        System.out.println("a3: " + score[2]);
-        
         int max = 0;
         int dupCnt = 0;
         for (int num : score) {
