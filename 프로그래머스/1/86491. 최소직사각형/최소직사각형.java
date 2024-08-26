@@ -1,7 +1,6 @@
 class Solution {
     
     public int solution(int[][] sizes) {
-        // 초기 가로, 세로의 각 최대 값을 찾는다
         int maxGaro = 0;
         int maxSero = 0;
 
