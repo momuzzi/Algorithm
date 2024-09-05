@@ -19,7 +19,7 @@ public class Main {
 
         dp[0][1] = score[1];
         dp[1][1] = 0;
-        
+
         if (num > 1) {
             dp[0][2] = dp[0][1] + score[2];
             dp[1][2] = score[2];
@@ -27,7 +27,7 @@ public class Main {
 
         if (num > 2) {
             for (int i = 3; i <= num; i++) {
-                dp[0][i] = Math.max(dp[0][i - 2], dp[1][i - 1]) + score[i];
+                dp[0][i] = dp[1][i - 1] + score[i];
                 dp[1][i] = Math.max(dp[0][i - 2], dp[1][i - 2]) + score[i];
             }
         }
