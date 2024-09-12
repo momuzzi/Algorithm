@@ -11,7 +11,7 @@ public class Main {
     static int[] dx = {0, 0, -1, 1};
     static int[] dy = {-1, 1, 0 ,0};
     static int[][] graph;
-    static LinkedList<int []> q;
+    static LinkedList<int[]> q;
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
