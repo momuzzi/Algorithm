@@ -36,7 +36,6 @@ public class Main {
         dfs(startVertex);
         System.out.println();
         bfs(startVertex);
-
     }
 
     static void dfs(int vertex) {
