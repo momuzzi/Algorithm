@@ -22,11 +22,13 @@ public class Main {
         }
 
         int money = city[0] * road[0];
+        int minCity = city[0];
         for (int i = 1; i < N - 1; i++) {
-            if (city[i - 1] > city[i]) {
+            if (minCity > city[i]) {
                 money += city[i] * road[i];
+                minCity = city[i];
             } else {
-                money += city[i - 1] * road[i];
+                money += minCity * road[i];
             }
         }
 
