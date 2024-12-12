@@ -1,5 +1,5 @@
 import java.io.*;
-import java.util.Stack;
+import java.util.*;
 
 public class Main {
 
@@ -9,13 +9,13 @@ public class Main {
 
         String str = rd.readLine();
 
-        Stack<Character> left = new Stack<>();
-        Stack<Character> right = new Stack<>();
+        Deque<Character> left = new ArrayDeque<>();
+        Deque<Character> right = new ArrayDeque<>();
 
         char[] arr = str.toCharArray();
 
         for (char c : arr) {
-            left.push(c);
+            left.addLast(c);
         }
 
         int M = Integer.parseInt(rd.readLine());
@@ -25,41 +25,39 @@ public class Main {
 
             if (cmd.startsWith("P")) {
                 char c = cmd.charAt(2);
-                left.push(c);
+                left.addLast(c);
                 continue;
             }
 
             if (cmd.equals("L")) {
-                if (!left.empty()) {
-                    Character pop = left.pop();
-                    right.push(pop);
+                if (!left.isEmpty()) {
+                    Character pop = left.pollLast();
+                    right.addFirst(pop);
                 }
                 continue;
             }
 
             if (cmd.equals("D")) {
-                if (!right.empty()) {
-                    Character pop = right.pop();
-                    left.push(pop);
+                if (!right.isEmpty()) {
+                    Character pop = right.pollFirst();
+                    left.addLast(pop);
                 }
                 continue;
             }
 
             if (cmd.equals("B")) {
-                if (!left.empty()) {
-                    left.pop();
+                if (!left.isEmpty()) {
+                    left.pollLast();
                 }
             }
         }
 
-        while (!left.empty()) {
-            Character pop = left.pop();
-            right.push(pop);
+        while (!left.isEmpty()) {
+            sb.append(left.pollFirst());
         }
 
-        while (!right.empty()) {
-            Character pop = right.pop();
-            sb.append(pop);
+        while (!right.isEmpty()) {
+            sb.append(right.pollFirst());
         }
 
         System.out.print(sb);
