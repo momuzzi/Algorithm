@@ -1,57 +1,67 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Stack;
+import java.io.*;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        StringBuilder builder = new StringBuilder();
+        BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
         while (true) {
-            String str = reader.readLine();
+            Deque<Character> stack = new ArrayDeque<>();
 
-            if (str.equals(".")) {
+            String input = rd.readLine();
+
+            if (input.equals(".")) {
                 break;
             }
 
-            Stack<Character> stack = new Stack<>();
-            for (int i = 0; i < str.length(); i++) {
-                char c = str.charAt(i);
+            char[] arr = input.toCharArray();
 
+            for (char c : arr) {
                 if (c == '(' || c == '[') {
-                    stack.push(c);
-                } else if (c == ')') {
-                    if (stack.empty()) {
-                        builder.append("no").append("\n");
-                        break;
-                    } else if (stack.peek() != '(') {
-                        builder.append("no").append("\n");
+                    stack.addLast(c);
+                    continue;
+                }
+
+                if (c == ')') {
+                    if (stack.isEmpty()) {
+                        sb.append("no" + "\n");
                         break;
                     } else {
-                        stack.pop();
+                        Character pop = stack.pollLast();
+                        if (!pop.equals('(')) {
+                            sb.append("no" + "\n");
+                            break;
+                        }
                     }
-                } else if (c == ']') {
-                    if (stack.empty()) {
-                        builder.append("no").append("\n");
-                        break;
-                    } else if (stack.peek() != '[') {
-                        builder.append("no").append("\n");
+                    continue;
+                }
+
+                if (c == ']') {
+                    if (stack.isEmpty()) {
+                        sb.append("no" + "\n");
                         break;
                     } else {
-                        stack.pop();
+                        Character pop = stack.pollLast();
+                        if (!pop.equals('[')) {
+                            sb.append("no" + "\n");
+                            break;
+                        }
                     }
-                } else if (c == '.') {
-                    if (stack.empty()) {
-                        builder.append("yes").append("\n");
+                    continue;
+                }
+
+                if (c == '.') {
+                    if (!stack.isEmpty()) {
+                        sb.append("no" + "\n");
                     } else {
-                        builder.append("no").append("\n");
+                        sb.append("yes" + "\n");
                     }
                 }
             }
         }
-        System.out.println(builder);
+
+        System.out.print(sb);
     }
 }
