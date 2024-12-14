@@ -92,7 +92,6 @@ public class Main {
             int y = arr[1];
 
             if (x == 0 || x == R - 1 || y == 0 || y == C - 1) {
-                
                 return pVisit[x][y] + 1;
             }
 
