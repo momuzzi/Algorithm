@@ -7,9 +7,7 @@ public class Main {
     static int E;
 
     static List<Node>[] graph;
-
     static int[] lengthArr;
-    static boolean[] visit;
 
     static int V1;
     static int V2;
@@ -34,7 +32,6 @@ public class Main {
 
         graph = new ArrayList[N + 1];
         lengthArr = new int[N + 1];
-        visit = new boolean[N + 1];
 
         for (int i = 1; i <= N; i++) {
             graph[i] = new ArrayList<>();
@@ -84,7 +81,6 @@ public class Main {
 
     static int dijk(int start, int end) {
         Arrays.fill(lengthArr, Integer.MAX_VALUE);
-        Arrays.fill(visit, false);
         lengthArr[start] = 0;
 
         PriorityQueue<Node> pq = new PriorityQueue<>((n1, n2) -> n1.length - n2.length);
@@ -98,12 +94,9 @@ public class Main {
                 return lengthArr[end];
             }
 
-            visit[node.toV] = true;
+            if (lengthArr[node.toV] < node.length) continue;
 
             for (Node nextNode : graph[node.toV]) {
-                if (visit[nextNode.toV])
-                    continue;
-
                 if (lengthArr[nextNode.toV] > node.length + nextNode.length) {
                     lengthArr[nextNode.toV] = node.length + nextNode.length;
 
