@@ -63,8 +63,6 @@ public class Main {
         while (!pq.isEmpty()) {
             Node node = pq.poll();
 
-            if (dist[node.v] < node.w) continue;
-
             for (Node nextNode : graph[node.v]) {
                 if (dist[nextNode.v] > node.w + nextNode.w) {
                     dist[nextNode.v] = node.w + nextNode.w;
