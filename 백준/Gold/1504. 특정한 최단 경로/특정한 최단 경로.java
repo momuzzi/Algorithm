@@ -84,6 +84,7 @@ public class Main {
 
     static int dijk(int start, int end) {
         Arrays.fill(lengthArr, Integer.MAX_VALUE);
+        Arrays.fill(visit, false);
         lengthArr[start] = 0;
 
         PriorityQueue<Node> pq = new PriorityQueue<>((n1, n2) -> n1.length - n2.length);
@@ -93,9 +94,16 @@ public class Main {
         while (!pq.isEmpty()) {
             Node node = pq.poll();
 
-            if (node.length > lengthArr[node.toV]) continue;
+            if (node.toV == end) {
+                return lengthArr[end];
+            }
+
+            visit[node.toV] = true;
 
             for (Node nextNode : graph[node.toV]) {
+                if (visit[nextNode.toV])
+                    continue;
+
                 if (lengthArr[nextNode.toV] > node.length + nextNode.length) {
                     lengthArr[nextNode.toV] = node.length + nextNode.length;
 
@@ -104,6 +112,6 @@ public class Main {
             }
         }
 
-        return lengthArr[end] == Integer.MAX_VALUE ? -1 : lengthArr[end];
+        return -1;
     }
 }
