@@ -7,9 +7,8 @@ public class Main {
     static int E;
     static List<Node>[] graph; // 인덱스 : 출발 노드, 해당 배열 인덱스 안의 리스트 안의 노드 : 출발 정점에서 갈 수 있는 노드
     static int[] dist;
-    static boolean[] visit;
     static int start;
-    
+
     static class Node {
         int v;
         int w;
@@ -30,7 +29,6 @@ public class Main {
         graph = new ArrayList[V + 1];
 
         dist = new int[V + 1]; // 해당 정점으로의 최소 거리 저장할 배열
-        visit = new boolean[V + 1]; // 방문 여부를 저장할 배열
 
         start = Integer.parseInt(br.readLine());
 
@@ -65,11 +63,9 @@ public class Main {
         while (!pq.isEmpty()) {
             Node node = pq.poll();
 
-            visit[node.v] = true;
+            if (dist[node.v] < node.w) continue;
 
             for (Node nextNode : graph[node.v]) {
-                if (visit[nextNode.v]) continue;
-
                 if (dist[nextNode.v] > node.w + nextNode.w) {
                     dist[nextNode.v] = node.w + nextNode.w;
                     pq.add(new Node(nextNode.v, dist[nextNode.v]));
