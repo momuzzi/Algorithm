@@ -8,7 +8,6 @@ public class Main {
 
     static List<City>[] graph;
     static int[] feeArr;
-    static boolean[] visit;
 
     static int start;
     static int end;
@@ -31,7 +30,6 @@ public class Main {
 
         graph = new ArrayList[cityCnt + 1];
         feeArr = new int[cityCnt + 1];
-        visit = new boolean[cityCnt + 1];
 
         for (int i = 1; i <= cityCnt; i++) {
             feeArr[i] = Integer.MAX_VALUE;
@@ -70,11 +68,9 @@ public class Main {
                 return;
             }
 
-            visit[city.arriveCityNum] = true;
+            if (feeArr[city.arriveCityNum] < city.busFee) continue;
 
             for (City nextCity : graph[city.arriveCityNum]) {
-                if (visit[nextCity.arriveCityNum]) continue;
-
                 if (feeArr[nextCity.arriveCityNum] > city.busFee + nextCity.busFee) {
                     feeArr[nextCity.arriveCityNum] = city.busFee + nextCity.busFee;
 
