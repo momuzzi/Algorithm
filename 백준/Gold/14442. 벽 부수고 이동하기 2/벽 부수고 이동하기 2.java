@@ -27,6 +27,10 @@ public class Main {
         road = new boolean[N][M];
         visit = new boolean[K + 1][N][M];
 
+        for (int i = 0; i <= K; i++) {
+            visit[i][0][0] = true;
+        }
+
         for (int i = 0; i < N; i++) {
             String ss = br.readLine();
             for (int j = 0; j < M; j++) {
@@ -42,7 +46,6 @@ public class Main {
     static int bfs() {
         LinkedList<Node> q = new LinkedList<>();
         q.offerLast(new Node(0, 0, 1, 0));
-        visit[0][0][0] = true;
         while (!q.isEmpty()) {
             Node node = q.pollFirst();
 
@@ -58,13 +61,13 @@ public class Main {
 
                 // 길인 경우
                 if (road[moveDx][moveDy]) {
-                    // 벽을 부선적이 있고, 벽을 부순 방문 배열에서 방문 안한 경우
+                    // 벽을 부순적이 있고, 벽을 부순 횟수 방문 배열에서 방문 안한 경우
                     if (node.brkCnt != 0 && !visit[node.brkCnt][moveDx][moveDy]) {
                         visit[node.brkCnt][moveDx][moveDy] = true;
                         q.offerLast(new Node(moveDx, moveDy, node.dist + 1, node.brkCnt));
                     }
 
-                    // 벽을 부신적이 없고, 벽을 부수지 않은 방문 배열에서 방문 안한 경우
+                    // 벽을 부순적이 없고, 벽을 부수지 않은 방문 배열에서 방문 안한 경우
                     if (node.brkCnt == 0 && !visit[0][moveDx][moveDy]) {
                         visit[0][moveDx][moveDy] = true;
                         q.offerLast(new Node(moveDx, moveDy, node.dist + 1, node.brkCnt));
@@ -75,7 +78,7 @@ public class Main {
 
                 // 벽인 경우
                 if (!road[moveDx][moveDy]) {
-                    // 벽을 부신적이 K회 미만이고, 해당 부신 횟수 배열에서 방문하지 않은 경우
+                    // 벽을 부순적이 K회 미만이고, 해당 부순 횟수 + 1 배열에서 방문하지 않은 경우
                     if (node.brkCnt < K && !visit[node.brkCnt + 1][moveDx][moveDy]) {
                         visit[node.brkCnt + 1][moveDx][moveDy] = true;
                         q.offerLast(new Node(moveDx, moveDy, node.dist + 1, node.brkCnt + 1));
