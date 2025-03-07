@@ -5,8 +5,6 @@ public class Main {
 
     static int N;
     static int maxHIdx = 0;
-    static boolean[][] arr = new boolean[1001][1001];
-
     static int[][] location;
 
     static class Node {
@@ -40,10 +38,6 @@ public class Main {
             location[i + 1][1] = H;
 
             maxHigh = Math.max(maxHigh, H);
-
-            for (int j = 1; j <= H; j++) {
-                arr[L][j] = true;
-            }
         }
 
         Arrays.sort(location, Comparator.comparingInt(o -> o[0]));
@@ -56,7 +50,7 @@ public class Main {
     }
 
     static void solve() {
-        // 가장 높은 기둥 넓이
+        // 가장 큰 기둥 넓이
         int maxHighWidth = location[maxHIdx][1];
 
         PriorityQueue<Node> leftPq = new PriorityQueue<>((n1, n2) -> n2.h - n1.h);
