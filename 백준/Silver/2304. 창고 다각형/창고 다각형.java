@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
 
     static int N;
-    static int maxHIdx = 0;
+    static int maxHIdx;
     static int[][] location;
 
     static class Node {
@@ -40,7 +40,7 @@ public class Main {
             maxHigh = Math.max(maxHigh, H);
         }
 
-        Arrays.sort(location, Comparator.comparingInt(o -> o[0]));
+        Arrays.sort(location, (o1, o2) -> o1[0] - o2[0]);
 
         for (int i = 1; i <= N; i++) {
             if (location[i][1] == maxHigh) {
@@ -50,7 +50,7 @@ public class Main {
     }
 
     static void solve() {
-        // 가장 큰 기둥 넓이
+        // 가장 높은 기둥 넓이
         int maxHighWidth = location[maxHIdx][1];
 
         PriorityQueue<Node> leftPq = new PriorityQueue<>((n1, n2) -> n2.h - n1.h);
@@ -63,7 +63,7 @@ public class Main {
             leftMaxHIdx--;
         }
 
-        // 가장 높은 기둥 기준 왼쪽 넓이를 구한다
+        // 가장 높은 기둥 기준 왼쪽 넓이
         int leftWidth = 0;
         int beforeL = location[maxHIdx][0];
         if (!leftPq.isEmpty()) {
@@ -81,7 +81,7 @@ public class Main {
             }
         }
 
-        // 가장 높은 기둥 기준 오른쪽 넓이를 구한다
+        // 가장 높은 기둥 기준 오른쪽 넓이
         PriorityQueue<Node> rightPq = new PriorityQueue<>((n1, n2) -> n2.h - n1.h);
         int rightMaxHIdx = maxHIdx + 1;
         while (rightMaxHIdx < N + 1) {
