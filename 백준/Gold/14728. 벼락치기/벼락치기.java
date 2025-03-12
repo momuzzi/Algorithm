@@ -31,7 +31,6 @@ public class Main {
     }
 
     static void solve() {
-        int answer = 0;
         for (int i = 1; i <= N; i++) {
             for (int j = 1; j <= T; j++) {
                 dp[i][j] = dp[i - 1][j];
@@ -39,11 +38,9 @@ public class Main {
                 if (j >= arr[i][0]) {
                     dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - arr[i][0]] + arr[i][1]);
                 }
-
-                answer = Math.max(answer, dp[i][j]);
             }
         }
 
-        System.out.print(answer);
+        System.out.print(dp[N][T]);
     }
 }
