@@ -4,6 +4,7 @@ import java.util.*;
 public class Main {
 
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     static String S;
     static int q;
 
@@ -22,12 +23,12 @@ public class Main {
         arr[0][S.charAt(0) - 'a'] = 1;
 
         for (int i = 1; i < S.length(); i++) {
-            int idx = S.charAt(i) - 'a';
-            arr[i][idx] = arr[i - 1][idx] + 1;
             for (int j = 0; j < 26; j++) {
-                if (j == idx) continue;
                 arr[i][j] = arr[i - 1][j];
             }
+
+            int idx = S.charAt(i) - 'a';
+            arr[i][idx] += 1;
         }
 
         for (int i = 0; i < q; i++) {
@@ -36,17 +37,14 @@ public class Main {
             int l = Integer.parseInt(st.nextToken());
             int r = Integer.parseInt(st.nextToken());
 
-            if (l == 0 && r == 0) {
-                System.out.println(arr[0][alphaIdx]);
-                continue;
-            }
-
             if (l == 0) {
-                System.out.println(arr[r][alphaIdx]);
-                continue;
+                bw.write(arr[r][alphaIdx] + "\n");
+            } else {
+                bw.write((arr[r][alphaIdx] - arr[l - 1][alphaIdx]) + "\n");
             }
-
-            System.out.println(arr[r][alphaIdx] - arr[l - 1][alphaIdx]);
         }
+
+        bw.flush();
+        bw.close();
     }
 }
