@@ -6,8 +6,7 @@ public class Main {
     static int N;
     static int[] craArr;
     static int M;
-    static int[] boxArr;
-    static boolean[] moveBox;
+    static List<Integer> boxList;
 
     public static void main(String[] args) throws Exception {
         init();
@@ -27,34 +26,31 @@ public class Main {
         Arrays.sort(craArr);
 
         M = Integer.parseInt(br.readLine());
-        boxArr = new int[M];
-        moveBox = new boolean[M];
+        boxList = new ArrayList<>();
+
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < M; i++) {
-            boxArr[i] = -1 * Integer.parseInt(st.nextToken());
+            boxList.add(Integer.parseInt(st.nextToken()));
         }
-
-        Arrays.sort(boxArr);
+        
+        Collections.sort(boxList, Collections.reverseOrder());
     }
 
     static void solve() {
-        if (-boxArr[0] > -craArr[0]) {
+        if (boxList.get(0) > -craArr[0]) {
             System.out.print(-1);
             return;
         }
 
         int time = 0;
-        int moveCnt = 0;
-        while (moveCnt != M) {
+        while (!boxList.isEmpty()) {
             int craIdx = 0;
             int boxIdx = 0;
 
-            while (craIdx < N && boxIdx < M) {
-                if (-craArr[craIdx] >= -boxArr[boxIdx] && !moveBox[boxIdx]) {
-                    moveBox[boxIdx] = true;
-                    moveCnt++;
+            while (craIdx < N && boxIdx < boxList.size()) {
+                if (-craArr[craIdx] >= boxList.get(boxIdx)) {
+                    boxList.remove(boxIdx);
                     craIdx++;
-                    boxIdx++;
                 } else {
                     boxIdx++;
                 }
