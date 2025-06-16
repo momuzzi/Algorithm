@@ -3,58 +3,53 @@ import java.util.*;
 
 public class Main {
 
-    static int[][] graph;
-    static int[][] dist;
     static int N;
     static int M;
-    static Deque<int[]> q;
-    static int[] dx = {0, 0, -1, 1};
-    static int[] dy = {-1, 1, 0, 0};
+    static int[][] graph;
+    static LinkedList<int[]> q;
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+    static int[] dx = {-1, 1, 0, 0};
+    static int[] dy = {0, 0, -1, 1};
 
-        String[] input = rd.readLine().split(" ");
+    public static void main(String[] args) throws Exception {
+        init();
+        solve();
+        System.out.print(graph[N - 1][M - 1]);
+    }
 
-        N = Integer.parseInt(input[0]);
-        M = Integer.parseInt(input[1]);
+    static void init() throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String input = br.readLine();
+        String[] inputArr = input.split(" ");
+        N = Integer.parseInt(inputArr[0]);
+        M = Integer.parseInt(inputArr[1]);
 
-        graph = new int[N + 1][M + 1];
-        dist = new int[N + 1][M + 1];
-        dist[1][1] = 1;
+        graph = new int[N][M];
 
-        q = new ArrayDeque<>();
-
-        for (int i = 1; i <= N; i++) {
-            String str = rd.readLine();
-            for (int j = 1; j <= M; j++) {
-                graph[i][j] = Character.getNumericValue(str.charAt(j - 1));
+        for (int i = 0; i < N; i++) {
+            String line = br.readLine();
+            for (int j = 0 ; j < M; j++) {
+                graph[i][j] = line.charAt(j) - '0';
             }
         }
 
-        q.addLast(new int[] {1, 1});
-        bfs();
-
-        System.out.print(dist[N][M]);
+        q = new LinkedList<>();
+        q.offerLast(new int[] {0, 0});
     }
 
-    static void bfs() {
+    static void solve() {
         while (!q.isEmpty()) {
-            int[] nm = q.pollFirst();
-            int x = nm[0];
-            int y = nm[1];
+            int[] poll = q.pollFirst();
+            int nowX = poll[0];
+            int nowY = poll[1];
 
             for (int i = 0; i < 4; i++) {
-                int moveX = x + dx[i];
-                int moveY = y + dy[i];
+                int moveX = nowX + dx[i];
+                int moveY = nowY + dy[i];
 
-                if (moveX < 1 || moveX > N || moveY < 1 || moveY > M) {
-                    continue;
-                }
-
-                if (graph[moveX][moveY] == 1 && dist[moveX][moveY] == 0) {
-                    dist[moveX][moveY] = dist[x][y] + 1;
-                    q.addLast(new int[] {moveX, moveY});
+                if (moveX >= 0 && moveX < N && moveY >= 0 && moveY < M && graph[moveX][moveY] == 1) {
+                    graph[moveX][moveY] = graph[nowX][nowY] + 1;
+                    q.offerLast(new int[] {moveX, moveY});
                 }
             }
         }
