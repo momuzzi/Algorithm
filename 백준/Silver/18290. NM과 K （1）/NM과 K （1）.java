@@ -65,10 +65,10 @@ public class Main {
     }
 
     static boolean cantChoice(int x, int y) {
-        int[] dx = {-1, 1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
+        int[] dx = {-1, 0};
+        int[] dy = {0, -1};
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 2; i++) {
             int moveX = x + dx[i];
             int moveY = y + dy[i];
 
