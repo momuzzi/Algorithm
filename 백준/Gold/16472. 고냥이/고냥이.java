@@ -13,26 +13,6 @@ public class Main {
             return;
         }
 
-        if (N == 1) {
-            int max = 1;
-            int cnt = 1;
-            char beforeC = '.';
-            for (int i = 0; i < s.length(); i++) {
-                if (beforeC == s.charAt(i)) {
-                    cnt++;
-                    max = Math.max(max, cnt);
-                } else {
-                    cnt = 1;
-                }
-
-                beforeC = s.charAt(i);
-            }
-
-            System.out.print(max);
-
-            return;
-        }
-
         Map<Character, Integer> map = new HashMap<>();
 
         if (s.charAt(0) == s.charAt(1)) {
