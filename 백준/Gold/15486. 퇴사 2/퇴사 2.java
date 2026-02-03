@@ -26,11 +26,6 @@ public class Main {
             }
         }
 
-        int ans = Integer.MIN_VALUE;
-        for (int i = 0; i <= N + 1; i++) {
-            ans = Math.max(ans, dp[i]);
-        }
-
-        System.out.print(ans);
+        System.out.print(Math.max(dp[N], dp[N + 1]));
     }
 }
